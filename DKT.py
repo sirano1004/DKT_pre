@@ -159,7 +159,7 @@ class DKTnet():
             return tuple(shape)
 
         earlyStopping = EarlyStopping(monitor='val_loss', patience=2, verbose=0, mode='auto')
-        reduced = Lambda(reduce_dim, output_shape = reduce_dim_shape)(merged)
+        reduced = Lambda(reduce_dim, output_shape = reduce_dim_shape, mask = masked._keras_mask)(merged)
         self.model = Model(inputs=[x,y_order], outputs=reduced)
         self.model.compile( optimizer = 'rmsprop',
                         loss = 'binary_crossentropy',
@@ -193,7 +193,7 @@ class DKTnet():
             return tuple(shape)
 
         earlyStopping = EarlyStopping(monitor='val_loss', patience=2, verbose=0, mode='auto')
-        reduced = Lambda(reduce_dim, output_shape = reduce_dim_shape)(merged)
+        reduced = Lambda(reduce_dim, output_shape = reduce_dim_shape, mask = masked._keras_mask)(merged)
         model = Model(inputs=[x,y_order], outputs=reduced)
         model.compile( optimizer = 'rmsprop',
                         loss = 'binary_crossentropy',
